@@ -5,7 +5,7 @@ builder.Services.AddRazorPages();
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.UseUrls($"http://*:{port}");
-git 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
