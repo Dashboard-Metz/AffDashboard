@@ -19,10 +19,10 @@
 
 <div style="font-family: Arial; padding: 20px;">
     <!-- Ligne 1 : date, heure, météo -->
-    <div style="display: flex; justify-content: center; align-items: center; gap: 170px; margin: 20px;margin-top: 210px;margin: 0 20px; text-align: center; color:white;">
-        <div id="date-text" style="font-size: 50px;"></div>
-        <div id="time-text" style="font-size: 70px;"></div>
-        <div id="weather-info" style="font-size: 50px; white-space: pre-line;"></div>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 170px; margin: 20px;margin-top: 400px;margin: 0 20px; text-align: center; color:white;">
+        <div id="date-text" style="font-size: 60px;"></div>
+        <div id="time-text" style="font-size: 80px;"></div>
+        <div id="weather-info" style="font-size: 60px; white-space: pre-line;"></div>
     </div>
 
     <hr />
@@ -32,7 +32,7 @@
         @if (Model.BfmArticle != null)
         {
             <div style="width: 50%; background-color: rgba(0,0,0,0.6); color: white; padding: 20px; border-radius: 10px; font-family: Arial;margin: 50px">
-                <h2 style="font-size: 30px;">@Model.BfmArticle.Title</h2>
+                <h2 style="font-size: 40px;">@Model.BfmArticle.Title</h2>
                 @if (!string.IsNullOrEmpty(Model.BfmArticle.ImageUrl))
                 {
                     <div style="display: flex; gap: 20px;">
@@ -51,7 +51,7 @@
         @if (Model.France24Article != null)
         {
             <div style="width: 50%; background-color: rgba(0,0,0,0.6); color: white; padding: 20px; border-radius: 10px; font-family: Arial;margin: 50px">
-                <h2 style="font-size:30px;">@Model.France24Article.Title</h2>
+                <h2 style="font-size:40px;">@Model.France24Article.Title</h2>
                 @if (!string.IsNullOrEmpty(Model.France24Article.ImageUrl))
                 {
                     <div style="display: flex; gap: 20px;">
