@@ -1,0 +1,110 @@
+﻿@page
+@model AffDashboard.Pages.ActuMeteoModel
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <title>Météo et actu</title>
+    <style>
+        body {
+            background-image: url('/Images/fond.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<div style="font-family: Arial; padding: 20px;">
+    <!-- Ligne 1 : date, heure, météo -->
+    <div style="display: flex; justify-content: center; align-items: center; gap: 170px; margin: 50px;margin-top: 200px; text-align: center; color:white;">
+        <div id="date-text" style="font-size: 4.5em;"></div>
+        <div id="time-text" style="font-size: 7em;"></div>
+        <div id="weather-info" style="font-size: 4.5em; white-space: pre-line;"></div>
+    </div>
+
+    <hr />
+
+    <div style="display: flex; justify-content: space-around; margin-top: 50px;">
+        <!-- Bloc BFM -->
+        @if (Model.BfmArticle != null)
+        {
+            <div style="width: 60%; background-color: rgba(0,0,0,0.6); color: white; padding: 20px; border-radius: 10px; font-family: Arial;margin: 50px">
+                <h2 style="font-size: 3em;">@Model.BfmArticle.Title</h2>
+                @if (!string.IsNullOrEmpty(Model.BfmArticle.ImageUrl))
+                {
+                    <div style="display: flex; gap: 20px;">
+                        <img src="@Model.BfmArticle.ImageUrl" style="width: 50%; border-radius: 10px;" />
+                        <p style="font-size: 2em;">@Model.BfmArticle.Summary</p>
+                    </div>
+                }
+                else
+                {
+                    <p style="font-size: 2em;">@Model.BfmArticle.Summary</p>
+                }
+            </div>
+        }
+
+        <!-- Bloc France 24 -->
+        @if (Model.France24Article != null)
+        {
+            <div style="width: 60%; background-color: rgba(0,0,0,0.6); color: white; padding: 20px; border-radius: 10px; font-family: Arial;margin: 50px">
+                <h2 style="font-size: 3em;">@Model.France24Article.Title</h2>
+                @if (!string.IsNullOrEmpty(Model.France24Article.ImageUrl))
+                {
+                    <div style="display: flex; gap: 20px;">
+                        <img src="@Model.France24Article.ImageUrl" style="width: 50%; border-radius: 10px;" />
+                        <p style="font-size: 2em;">@Model.France24Article.Summary</p>
+                    </div>
+                }
+                else
+                {
+                    <p style="font-size: 2em;">@Model.France24Article.Summary</p>
+                }
+            </div>
+        }
+
+</div>
+
+<script>
+    function updateDateTime() {
+        const now = new Date();
+        const jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        const mois = ["JANVIER", "FÉVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET","AOÛT", "SEPTEMBRE",  "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"];
+        const jour = jours[now.getDay()];
+        const date = `${jour} ${now.getDate()} ${mois[now.getMonth()]}`;
+        const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+        document.getElementById("date-text").innerText = date;
+        document.getElementById("time-text").innerText = time;
+    }
+
+    async function updateWeather() {
+        const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.12&longitude=6.17&current_weather=true");
+        const data = await res.json();
+        const weather = data.current_weather;
+
+        let description = "Inconnu";
+        if (weather.weathercode === 0) description = "☀ Ensoleillé";
+        else if (weather.weathercode === 1 || weather.weathercode === 2) description = "🌤 Partiellement nuageux";
+        else if (weather.weathercode === 3) description = "☁ Nuageux";
+        else if (weather.weathercode >= 45 && weather.weathercode <= 67) description = "🌫 Brouillard";
+        else if (weather.weathercode >= 80) description = "🌧 Pluie";
+
+        document.getElementById("weather-info").innerText = `${weather.temperature}°C\n${description}`;
+    }
+    // Lancement initial
+    updateDateTime();
+    updateWeather();
+
+    // Mise à jour toutes les 30s
+    setInterval(() => {
+        updateDateTime();
+    }, 30000);
+
+    setInterval(() => {
+        updateWeather();
+    }, 60000);
+</script>
