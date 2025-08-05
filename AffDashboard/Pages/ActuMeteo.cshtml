@@ -19,7 +19,7 @@
 
 <div style="font-family: Arial; padding: 20px;">
     <!-- Ligne 1 : date, heure, météo -->
-    <div style="display: flex; justify-content: center; align-items: center; gap: 170px; margin: 40px;margin-top: 210px; text-align: center; color:white;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 170px; margin: 20px;margin-top: 230px;margin: 0 20px; text-align: center; color:white;">
         <div id="date-text" style="font-size: 4.5em;"></div>
         <div id="time-text" style="font-size: 7em;"></div>
         <div id="weather-info" style="font-size: 4.5em; white-space: pre-line;"></div>
@@ -32,17 +32,17 @@
         @if (Model.BfmArticle != null)
         {
             <div style="width: 50%; background-color: rgba(0,0,0,0.6); color: white; padding: 20px; border-radius: 10px; font-family: Arial;margin: 50px">
-                <h2 style="font-size: 3em;">@Model.BfmArticle.Title</h2>
+                <h2 style="font-size: 2.7em;">@Model.BfmArticle.Title</h2>
                 @if (!string.IsNullOrEmpty(Model.BfmArticle.ImageUrl))
                 {
                     <div style="display: flex; gap: 20px;">
                         <img src="@Model.BfmArticle.ImageUrl" style="width: 50%; border-radius: 10px;" />
-                        <p style="font-size: 2em;">@Model.BfmArticle.Summary</p>
+                        <p style="font-size: 1.7em;">@Model.BfmArticle.Summary</p>
                     </div>
                 }
                 else
                 {
-                    <p style="font-size: 2em;">@Model.BfmArticle.Summary</p>
+                    <p style="font-size: 1.7em;">@Model.BfmArticle.Summary</p>
                 }
             </div>
         }
@@ -51,21 +51,21 @@
         @if (Model.France24Article != null)
         {
             <div style="width: 50%; background-color: rgba(0,0,0,0.6); color: white; padding: 20px; border-radius: 10px; font-family: Arial;margin: 50px">
-                <h2 style="font-size: 3em;">@Model.France24Article.Title</h2>
+                <h2 style="font-size: 2.7em;">@Model.France24Article.Title</h2>
                 @if (!string.IsNullOrEmpty(Model.France24Article.ImageUrl))
                 {
                     <div style="display: flex; gap: 20px;">
-                        <img src="@Model.France24Article.ImageUrl" style="width: 50%; border-radius: 10px;" />
-                        <p style="font-size: 2em;">@Model.France24Article.Summary</p>
+                        <img src="@Model.France24Article.ImageUrl" style="width: 40%; border-radius: 10px;" />
+                        <p style="font-size: 1.7em;">@Model.France24Article.Summary</p>
                     </div>
                 }
                 else
                 {
-                    <p style="font-size: 2em;">@Model.France24Article.Summary</p>
+                    <p style="font-size: 1.7em;">@Model.France24Article.Summary</p>
                 }
             </div>
         }
-
+    </div>
 </div>
 
 <script>
